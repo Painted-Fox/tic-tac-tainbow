@@ -30,19 +30,19 @@ In this version of Tic-Tac-Toe, we assume that X is always the first player.
 
 const (
 	_ = iota
-	x
-	o
-	err
+	X
+	O
+	ERR
 )
 
 type TicTacToeBoard uint32
 
-func (board TicTacToeBoard) SetX(pos uint32) TicTacToeBoard{
-	return TicTacToeBoard(uint32(board) | 1 << (2*pos)).setWinner()
+func (board TicTacToeBoard) SetX(pos uint32) TicTacToeBoard {
+	return TicTacToeBoard(uint32(board) | 1<<(2*pos)).setWinner()
 }
 
 func (board TicTacToeBoard) SetO(pos uint32) TicTacToeBoard {
-	return TicTacToeBoard(uint32(board) | 1 << (2*pos + 1)).setWinner()
+	return TicTacToeBoard(uint32(board) | 1<<(2*pos+1)).setWinner()
 }
 
 func (board TicTacToeBoard) GetPos(pos uint32) string {
@@ -50,11 +50,11 @@ func (board TicTacToeBoard) GetPos(pos uint32) string {
 	switch field {
 	default:
 		return " "
-	case x:
+	case X:
 		return "X"
-	case o:
+	case O:
 		return "O"
-	case err:
+	case ERR:
 		return "!"
 	}
 
@@ -65,11 +65,11 @@ func (board TicTacToeBoard) GetWinner() string {
 	switch win {
 	default:
 		return " "
-	case x:
+	case X:
 		return "X"
-	case o:
+	case O:
 		return "O"
-	case err:
+	case ERR:
 		return "!"
 	}
 }
@@ -78,10 +78,10 @@ func (board TicTacToeBoard) GetWinner() string {
 func (board TicTacToeBoard) setWinner() TicTacToeBoard {
 	var i uint32
 	for i = 0; i < 3; i++ {
-		if (uint32(board) >> (i*2 + 2)) & 21 == 21 {
+		if (uint32(board)>>(i*2+2))&21 == 21 {
 			return TicTacToeBoard(uint32(board) | 1)
 		}
-		if (uint32(board) >> (i*2 + 2)) & 42 == 42 {
+		if (uint32(board)>>(i*2+2))&42 == 42 {
 			return TicTacToeBoard(uint32(board) | 2)
 		}
 	}
@@ -114,7 +114,6 @@ func main() {
 	board = board.SetO(6)
 	board = board.SetX(2)
 	board = board.SetO(4)
-
 
 	fmt.Printf("%s\n\n", board.String())
 
